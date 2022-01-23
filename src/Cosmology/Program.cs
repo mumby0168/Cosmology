@@ -78,8 +78,15 @@ app.Configure(configurator =>
     configurator.AddBranch("config", settingsCfg =>
     {
         settingsCfg.SetDescription("Manage settings for the cosmology tools");
-        settingsCfg.AddCommand<ListConfigCommand>("list");
-        settingsCfg.AddCommand<SetConfigPropertyCommand>("set");
+        
+        settingsCfg.AddCommand<ListConfigCommand>("list")
+            .WithDescription("lists all the config stored")
+            .WithAlias("l");
+        
+        settingsCfg.AddCommand<SetConfigPropertyCommand>("set")
+            .WithDescription("sets a given config value")
+            .WithAlias("s")
+            .WithExample(new []{"config set CosmosConnectionString \"wrap-conn-string-in-quotes\""});
     });
 });
 
