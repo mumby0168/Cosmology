@@ -1,3 +1,4 @@
+using Cosmology;
 using Cosmology.Commands.Database;
 using Cosmology.Extensions;
 using Cosmology.Providers;
@@ -7,7 +8,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console.Cli;
 
 var configProvider = new ConfigurationProvider();
-var client = new CosmosClient(configProvider.GetCosmosConnectionString());
+
+var connectionString = configProvider.GetCosmosConnectionString();
+
+if (connectionString is null)
+{
+    CosmologyOutput.Error($"Please set the {Constants.ConnectionStringEnvironmentVariable} env var to a valid cosmos connection string.");
+    return 1;
+}
+
+var client = new CosmosClient(connectionString);
 var services = new ServiceCollection();
 services.AddSingleton(client);
 services.AddSingleton(configProvider);
