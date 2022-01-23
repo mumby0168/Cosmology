@@ -33,11 +33,28 @@ var app = new CommandApp(services.BuildTypeRegistrar());
 
 app.Configure(configurator =>
 {
-    configurator.AddBranch<DbCommonSettings>("db", dbConfigurator =>
+    configurator.Settings.ApplicationName = "cosmology";
+    configurator.AddBranch<DbCommonSettings>("dbs", dbConfigurator =>
     {
-        dbConfigurator.AddCommand<DeleteDatabase>("delete");
-        dbConfigurator.AddCommand<ListDatabases>("list");
-        dbConfigurator.AddCommand<PruneDatabases>("prune");
+        dbConfigurator.SetDescription("Interacts with cosmos dbs associated with the account configured.");
+        dbConfigurator.AddExample(new []{"delete", "-n my-db-to-delete"});
+        dbConfigurator.AddExample(new []{"delete", "--database-name my-db-to-delete"});
+        dbConfigurator.AddExample(new []{"list"});
+        dbConfigurator.AddExample(new []{"prune"});
+        dbConfigurator.AddExample(new []{"prune", "--skip-confirmation"});
+
+        dbConfigurator.AddCommand<DeleteDatabase>("delete")
+            .WithDescription("deletes a cosmos db database")
+            .WithAlias("del")
+            .WithExample(new[] {"delete","-n my-db-to-delete"})
+            .WithExample(new []{"del", "--database-name my-db-to-delete"});
+            
+        dbConfigurator.AddCommand<ListDatabases>("list")
+            .WithDescription("list all cosmos dbs on the current account")
+            .WithAlias("l");
+        
+        dbConfigurator.AddCommand<PruneDatabases>("prune")
+            .WithDescription("deletes ALL cosmos dbs from the current account");
     });
 });
 
