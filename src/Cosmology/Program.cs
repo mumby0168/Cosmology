@@ -7,20 +7,25 @@ using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console.Cli;
 
-var configProvider = new ConfigurationProvider();
-
-var connectionString = configProvider.GetCosmosConnectionString();
-
-if (connectionString is null)
-{
-    CosmologyOutput.Error($"Please set the {Constants.ConnectionStringEnvironmentVariable} env var to a valid cosmos connection string.");
-    return 1;
-}
-
-var client = new CosmosClient(connectionString);
 var services = new ServiceCollection();
-services.AddSingleton(client);
-services.AddSingleton(configProvider);
+
+services.AddSingleton(sp =>
+{
+    var configProvider = sp.GetRequiredService<ConfigurationProvider>();
+    var connectionString = configProvider.GetCosmosConnectionString();
+
+    if (connectionString is not null)
+    {
+        return new CosmosClient(connectionString);
+    }
+
+    CosmologyOutput.Error(
+        $"Please set the {Constants.ConnectionStringEnvironmentVariable} env var to a valid cosmos connection string.");
+    
+    throw new Exception();
+});
+
+services.AddSingleton<ConfigurationProvider>();
 services.AddSingleton(new DbCommonSettings());
 services.AddSingleton(new DbPruneSettings());
 
