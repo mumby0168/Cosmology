@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <!-- Tool Settings-->
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>cosmology</ToolCommandName>
+        <Authors>Billy Mumby</Authors>
+        <Copyright>Copyright 2022 (c) Billy Mumby. All rights reserved.</Copyright>
+        <Description>A CLI tool to help explore and manage an Azure Cosmos DB account.</Description>
+
+        <!-- NuGet settings -->
+        <PackageId>Mumby0168.Cosmology</PackageId>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageTags>Tool;Dotnet;Cli;Console;Cosmos;csproj;sln</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/mumby0168/Cosmology</PackageProjectUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/mumby0168/Cosmology</RepositoryUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.23.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+      <PackageReference Include="Spectre.Console" Version="0.43.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+        <None Include="appsettings.json" Pack="true" PackagePath="\" />
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>
