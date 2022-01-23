@@ -7,6 +7,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1F495EBC-18A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmology", "src\Cosmology\Cosmology.csproj", "{E550759D-7FAD-4B2F-884E-A2A0FDE0287E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{E4985D3D-EE0C-475C-BEA1-049EE2B938A0}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		.github\workflows\main.yml = .github\workflows\main.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
